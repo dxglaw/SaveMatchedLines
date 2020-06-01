@@ -1,4 +1,13 @@
 !.gitignore
 
 # visual studio files
-/.vscode/
+.vscode/
+
+# python cache
+__pycache__/
+
+# pyinstaller
+dist/
+build/
+*.spec
+*.pyc
