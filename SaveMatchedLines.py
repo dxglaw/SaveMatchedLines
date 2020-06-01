@@ -27,10 +27,17 @@ def save_matched_lines(in_file, tag, out_file=None):
             fout.write("\n".join(matched))
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    num_of_args = len(sys.argv)
+    if num_of_args > 1:
         in_file = sys.argv[1]
-        tag = sys.argv[2]
-        out_file = None
+        if num_of_args > 2:
+            tag = sys.argv[2]
+        else:
+            tag = input('Please input the tag: ')
+        if num_of_args > 3:
+            out_file = sys.argv[3]
+        else:
+            out_file = None
     else:
         in_file = 'test.csv'
         tag = 'pps'
