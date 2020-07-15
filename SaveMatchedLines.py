@@ -1,7 +1,7 @@
 import sys
 import re
 
-def save_matched_lines(in_file, tag, out_file=None):
+def save_matched_lines(in_file, tag, out_file=None, remove_tag=False):
     '''
     Match lines in in_file with tag and write matched lines to out_file.
     Args:
@@ -23,10 +23,20 @@ def save_matched_lines(in_file, tag, out_file=None):
     with open(in_file, 'r') as fin:
         in_contents = fin.read()
         matched = re.findall('^'+tag+'.*$', in_contents, re.M)
+        out_contents = "\n".join(matched)
+        if remove_tag:
+            out_contents = out_contents.replace(tag, '')
+            pass
         with open(out_file, 'w') as fout:
-            fout.write("\n".join(matched))
+            fout.write(out_contents)
 
 if __name__ == "__main__":
+    # default input
+    in_file = 'test.csv'
+    tag = 'pps,'
+    out_file = 'out.csv'
+    remove_tag = False
+    # args
     num_of_args = len(sys.argv)
     if num_of_args > 1:
         in_file = sys.argv[1]
@@ -34,12 +44,12 @@ if __name__ == "__main__":
             tag = sys.argv[2]
         else:
             tag = input('Please input the tag: ')
+            # if the trailing character is space, do not inlude tag in the output file.
+            if tag[-1] == ' ':
+                remove_tag = True
+                tag = tag[:-1]
         if num_of_args > 3:
             out_file = sys.argv[3]
         else:
             out_file = None
-    else:
-        in_file = 'test.csv'
-        tag = 'pps'
-        out_file = 'out.csv'
-    save_matched_lines(in_file, tag, out_file)
+    save_matched_lines(in_file, tag, out_file, remove_tag)
