@@ -43,7 +43,7 @@ if __name__ == "__main__":
         if num_of_args > 2:
             tag = sys.argv[2]
         else:
-            tag = input('Please input the tag: ')
+            tag = input('Please input the tag (add a trailing space not to output tag): ')
             # if the trailing character is space, do not inlude tag in the output file.
             if tag[-1] == ' ':
                 remove_tag = True
