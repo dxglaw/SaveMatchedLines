@@ -20,13 +20,19 @@ def save_matched_lines(in_file, tag, out_file=None, remove_tag=False):
         else:
             out_file = in_file + '_out'
     # save matched lines to output file
-    with open(in_file, 'r') as fin:
+    with open(in_file, 'r', encoding='utf-8') as fin:
         in_contents = fin.read()
+        # handle special characters in the tag
+        specail_ch = ['^', '$', '*', '+', '?']
+        for ch in specail_ch:
+            if ch in tag:
+                tag = tag.replace(ch, '\\'+ch)
+        # match the tag
         matched = re.findall('^'+tag+'.*$', in_contents, re.M)
         out_contents = "\n".join(matched)
         if remove_tag:
             out_contents = out_contents.replace(tag, '')
-            pass
+        # write to the output file
         with open(out_file, 'w') as fout:
             fout.write(out_contents)
 
