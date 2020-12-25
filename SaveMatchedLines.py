@@ -33,7 +33,7 @@ def save_matched_lines(in_file, tag, out_file=None, remove_tag=False):
         if remove_tag:
             out_contents = out_contents.replace(tag, '')
         # write to the output file
-        with open(out_file, 'w') as fout:
+        with open(out_file, 'w', encoding='utf-8') as fout:
             fout.write(out_contents)
 
 if __name__ == "__main__":
